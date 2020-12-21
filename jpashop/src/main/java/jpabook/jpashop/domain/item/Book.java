@@ -1,4 +1,14 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.domain.item;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-public class Book {
+@Entity
+@DiscriminatorValue("B") //DB구분자
+@Getter @Setter
+public class Book extends Item {
+
+    private String author;
+    private String isbn;
 }
