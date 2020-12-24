@@ -26,7 +26,8 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
-     public List<Order> findAllByString(OrderSearch orderSearch) {
+    //findAllByString
+     public List<Order> findAll(OrderSearch orderSearch) {
      /*
          return em.createQuery("select o from Order o join o.member m" +
                  "where o.status =:status" +
@@ -108,5 +109,6 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대1000건
         return query.getResultList();
     }
+
 
 }

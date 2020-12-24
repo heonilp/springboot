@@ -75,12 +75,26 @@ public class ItemController {
     /**
      * 상품 수정
      */
+
+    /**
+     * 상품 수정, 권장 코드
+     */
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
 
+        itemService.updateItem(form.getId(), form.getName(), form.getPrice());
+
+        return "redirect:/items";
+    }
+    /*
+    @PostMapping(value = "/items/{itemId}/edit")
+    public String updateItem(@ModelAttribute("form") BookForm form) {
+
+
         Book book = new Book();
 
-        book.setId(form.getId());
+        //DB에 한번 다녀온 데이터를 준영속성 엔티티라고 함
+
         book.setName(form.getName());
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
@@ -90,6 +104,12 @@ public class ItemController {
         itemService.saveItem(book);
 
         return "redirect:/items";
+
+
+
+
     }
 
+
+     */
 }
