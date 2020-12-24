@@ -25,7 +25,8 @@ public class OrderRepository {
     public Order findOne(Long id) {
         return em.find(Order.class, id);
     }
-     public List<Order> findAll(OrderSearch orderSearch) {
+
+     public List<Order> findAllByString(OrderSearch orderSearch) {
      /*
          return em.createQuery("select o from Order o join o.member m" +
                  "where o.status =:status" +
@@ -76,6 +77,7 @@ public class OrderRepository {
 
      }
 
+     //유지보수가 어렵다, 하지만 할수 있기 때문에 보여준거임
     //JPA Criteria는 JPA 표준 스펙이지만 실무에서 사용하기에 너무 복잡하다. 결국 다른 대안이 필요하다.
     // 많은 개발자가 비슷한 고민을 했지만, 가장 멋진 해결책은 Querydsl이 제시했다.
     // Querydsl 소개장에서 간단히 언급하겠다. 지금은 이대로 진행하자.
