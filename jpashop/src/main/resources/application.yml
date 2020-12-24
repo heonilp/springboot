@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/jpashop #;MVCC=TRUE
+    #url: jdbc;h2:mem:test #메모리모드로 동작 ->test할때 메모리에 올려서 돌리자
     # MVCC =>여러개 들어갈때 빠름
     username: sa
     password:
@@ -9,6 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+      #스프링 부트는 create-drop으로 돌린다.
     properties:
       hibernate:
  #       show_sql: true

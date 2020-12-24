@@ -11,6 +11,7 @@ public class MemberRepository {
     @PersistenceContext
     private EntityManager em;
 
+    //영속성 넣기
     public void save(Member member) {
         em.persist(member);
     }
