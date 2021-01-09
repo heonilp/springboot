@@ -1,8 +1,8 @@
-package com.example.myhome;
+package com.myhome;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+//마리아db 포트 3305로 고침
 @SpringBootApplication
 public class MyhomeApplication {
 
