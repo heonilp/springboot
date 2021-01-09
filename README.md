@@ -1,1 +1,1 @@
-springboot, JPA 강의 듣고 실습(김영한님 강의)
+# springboot, JPA 강의 듣고 실습 및 공부한 내용입니다.
