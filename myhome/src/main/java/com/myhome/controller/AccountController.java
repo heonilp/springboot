@@ -28,6 +28,6 @@ public class AccountController {
     @PostMapping("/register")
     public String register(User user) {
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/"; //다시 홈으로 이동
     }
 }

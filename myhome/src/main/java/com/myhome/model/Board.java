@@ -18,7 +18,7 @@ public class Board {
     private String title;
     private String content;
 
-    @ManyToOne
+    @ManyToOne // 네임속성
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;

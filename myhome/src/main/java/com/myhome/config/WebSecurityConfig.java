@@ -23,6 +23,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    //자동으로 로그인 화면으로감
+    /*
+    @OneToOne
+    EX) user - user_detail
+
+    @OneToMany
+    EX) user - board
+
+    @ManyToOne
+    EX) board- user
+
+    @ManyToMany
+    EX)user - role
+    */
+    //인증이 되지 않았기때문에 이동
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -37,11 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .permitAll();
     }
-
+    
+    //시큐리티
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.jdbcAuthentication()
+        auth.jdbcAuthentication() //인증 / 권한
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select username, password, enabled "
