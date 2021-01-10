@@ -17,6 +17,7 @@ public class BoardService {
     private UserRepository userRepository;
 
     public Board save(String username, Board board) {
+        //유저 네임가져오기
         User user = userRepository.findByUsername(username);
         board.setUser(user);
         return boardRepository.save(board);
