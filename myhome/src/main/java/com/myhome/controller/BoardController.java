@@ -55,6 +55,7 @@ public class BoardController {
 
     @PostMapping("/form")
     public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
+        //validate, 내용의 길이
         boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {
             return "board/form";

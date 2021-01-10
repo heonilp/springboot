@@ -14,6 +14,7 @@ class BoardApiController {
     @Autowired
     private BoardRepository repository;
 
+    //Postman 사용하여서 Restful API 실습
     @GetMapping("/boards")
     List<Board> all(@RequestParam(required = false, defaultValue = "") String title,
         @RequestParam(required = false, defaultValue = "") String content) {
@@ -36,6 +37,7 @@ class BoardApiController {
         return repository.findById(id).orElse(null);
     }
 
+    //업데이트
     @PutMapping("/boards/{id}")
     Board replaceBoard(@RequestBody Board newBoard, @PathVariable Long id) {
 
@@ -51,6 +53,7 @@ class BoardApiController {
                 });
     }
 
+    //삭제
     @DeleteMapping("/boards/{id}")
     void deleteBoard(@PathVariable Long id) {
         repository.deleteById(id);
