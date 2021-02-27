@@ -19,6 +19,9 @@ import org.springframework.web.filter.CorsFilter;
 // 추가적인 설정을 위해서 WebSecurityConfigurer을 implements하거나
 // WebSecurityConfigurerAdapter를 extends하는 방법이 있습니다.
 //여기서는 WebSecurityConfigurerAdapter을 extends하여 설정을 진행했습니다.
+
+//@EnableGlobalMethodSecurity(prePostEnabled = true) 어노테이션은 메소드 단위로
+//@PreAuthorize 검증 어노테이션을 사용하기 위해 추가합니다.
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    //위에서 만들었던 TokenProvider, JwtAuthenticationEntryPoint, JwtAccessDeniedHandler를 주입받는 코드를 추가합니다.
+    //Password Encode는 BCryptPasswordEncoder()를 사용하겠습니다.
     public SecurityConfig(
             TokenProvider tokenProvider,
             CorsFilter corsFilter,
@@ -39,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
 
+    //Password Encode는 BCryptPasswordEncoder()를 사용하겠습니다.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -69,17 +75,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                // enable h2-console
+                // enable h2-console 예외처리를 위해 만들었던 코드를 지정해줍니다.
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
-
+                //데이터 확인을 위해 사용하고 있는 h2-console을 위한 설정을 추가해줍니다.
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
+                ///api/hello, /api/authenticate, /api/signup 3가지 API는 Token이 없어도 호출할 수 있도록 허용합니다.
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/hello").permitAll()
@@ -87,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signup").permitAll()
 
                 .anyRequest().authenticated()
-
+                //위에서 만들었던 JwtFilter를 addFilterBefore 메소드로 등록했던 JwtSecurityConfig 클래스도 적용해줍니다.
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
 

@@ -17,11 +17,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    //UserRepository, PasswordEncoder를 주입받는 UserService 클래스를 생성합니다.
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+    //signup 메소드는 이미 같은 username으로 가입된 유저가 있는 지 확인하고,
+    // UserDto 객체의 정보들을 기반으로 권한 객체와 유저 객체를 생성하여 Database에 저장합니다.
     @Transactional
     public User signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
@@ -43,12 +46,13 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
+    //getUserWithAuthorities 메소드는 username을 파라미터로 받아 해당 유저의 정보 및 권한 정보를 리턴합니다.
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities(String username) {
         return userRepository.findOneWithAuthoritiesByUsername(username);
     }
-
+    //getMyUserWithAuthorities 메소드는 위에서 만든 SecurityUtil의 getCurrentUsername() 메소드가
+    // 리턴하는 username의 유저 및 권한 정보를 리턴합니다.
     @Transactional(readOnly = true)
     public Optional<User> getMyUserWithAuthorities() {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);

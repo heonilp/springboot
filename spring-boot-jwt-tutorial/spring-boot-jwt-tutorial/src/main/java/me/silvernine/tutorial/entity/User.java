@@ -41,7 +41,7 @@ public class User {
    private boolean activated;
 
 //   @ManyToMany @JoinTable 부분은 쉽게 말해 User, Authority 테이블의 다대다 관계를 일대다,
-//   다대일 관계의 조인 테이블로 정의합니다.
+//   다대일 관계의 조인 테이블로 정의합니다. //유저 등급, 권한
    @ManyToMany
    @JoinTable(
       name = "user_authority",

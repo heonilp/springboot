@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+//JWT를 위한 Custom Filter를 만들기 위해 GenericFilterBean을 extends한 JwtFilter.java를 생성합니다.
 public class JwtFilter extends GenericFilterBean {
 
    private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
@@ -21,11 +22,13 @@ public class JwtFilter extends GenericFilterBean {
    public static final String AUTHORIZATION_HEADER = "Authorization";
 
    private TokenProvider tokenProvider;
-
+   //JwtFilter빈은 TokenProvider를 주입받습니다.
+   //실제 필터링 로직은 doFilter 메소드를 오버라이드하여 작성합니다.
    public JwtFilter(TokenProvider tokenProvider) {
       this.tokenProvider = tokenProvider;
    }
 
+   //doFilter 메소드는 jwt 토큰의 인증 정보를 현재 실행중인 스레드 ( Security Context ) 에 저장합니다.
    @Override
    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
       throws IOException, ServletException {
@@ -43,7 +46,7 @@ public class JwtFilter extends GenericFilterBean {
 
       filterChain.doFilter(servletRequest, servletResponse);
    }
-
+   //resolveToken 메소드는 HttpServletRequest 객체의 Header에서 token을 꺼내는 역할을 수행합니다.
    private String resolveToken(HttpServletRequest request) {
       String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
       if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
