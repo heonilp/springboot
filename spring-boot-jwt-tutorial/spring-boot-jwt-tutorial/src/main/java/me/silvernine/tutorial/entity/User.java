@@ -36,12 +36,15 @@ public class User {
    @Column(name = "nickname", length = 50)
    private String nickname;
 
+   @Column(name = "email", length = 50)
+   private String email;
+
    @JsonIgnore
    @Column(name = "activated")
    private boolean activated;
 
 //   @ManyToMany @JoinTable 부분은 쉽게 말해 User, Authority 테이블의 다대다 관계를 일대다,
-//   다대일 관계의 조인 테이블로 정의합니다. //유저 등급, 권한
+//   다대일 관계의 조인 테이블로 정의합니다.
    @ManyToMany
    @JoinTable(
       name = "user_authority",
