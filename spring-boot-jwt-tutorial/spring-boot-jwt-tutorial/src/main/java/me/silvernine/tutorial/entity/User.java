@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+//@Entity는 Database Table과 1:1로 매핑되는 객체를 뜻합니다.
+//@Table은 객체와 매핑되는 Database의 Table명을 지정하기 위해 사용합니다.
 @Entity
 @Table(name = "user")
 @Getter
@@ -18,9 +20,9 @@ import java.util.Set;
 @NoArgsConstructor
 public class User {
 
-   @JsonIgnore
-   @Id
-   @Column(name = "user_id")
+   @JsonIgnore //@JsonIgnore는 서버에서 Json 응답을 생성할때 해당 필드는 ignore 하겠다는 의미입니다.
+   @Id //@Id는 해당 필드가 Primary Key임을 의미
+   @Column(name = "user_id") //@Column은 매핑되는 Database Column의 정보를 정의합니다.
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long userId;
 
@@ -38,6 +40,8 @@ public class User {
    @Column(name = "activated")
    private boolean activated;
 
+//   @ManyToMany @JoinTable 부분은 쉽게 말해 User, Authority 테이블의 다대다 관계를 일대다,
+//   다대일 관계의 조인 테이블로 정의합니다.
    @ManyToMany
    @JoinTable(
       name = "user_authority",

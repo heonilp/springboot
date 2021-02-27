@@ -3,7 +3,7 @@ spring:
   h2:
     console:
       enabled: true
-
+ #주의 : 접속할때 8080으로 접속하기 8082들어가면 테이블없음
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
