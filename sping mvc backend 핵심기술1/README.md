@@ -452,3 +452,16 @@ WAS: 주문 서버 -> ->HTTP API - 서버 to 서버  주문 정보 조회  -> DB
 • 스프링 MVC와 강력한 기능 통합
 • 최선의 선택, 단 성능은 프리마커, 벨로시티가 더 빠름
 ```
+
+
+- 서블릿에 대해서 실습 예정, 서블릿, HTTP, 요청 응답 구현, 정리
+
+- 스프링 부트로 개발
+
+- Gradle project JAVA, 2.4.3 이상
+
+- Group hello , A, N : servlet ,War(JSP를 돌리려고 씀,톰켓 설치를 별도로, 내장도) , java 11
+
+- Spring Web, Lombok 선택
+
+- postman 설치하기
